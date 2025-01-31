@@ -1,0 +1,6 @@
+@SReddy_Audio_Video_HostAddress = http://localhost:5156
+
+GET {{SReddy_Audio_Video_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
