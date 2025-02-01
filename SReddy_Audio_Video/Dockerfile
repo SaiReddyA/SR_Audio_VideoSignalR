@@ -7,9 +7,17 @@ EXPOSE 443
 # Use the SDK image for building the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["SignalRChatApp.csproj", "./"]
-RUN dotnet restore "./SReddy_Audio_Video.csproj"
+
+# Copy the solution and project files
+COPY ["SR_Audio_Video.sln", "./"]
+COPY ["SReddy_Audio_Video/SReddy_Audio_Video.csproj", "SReddy_Audio_Video/"]
+
+# Restore dependencies
+RUN dotnet restore "SReddy_Audio_Video/SReddy_Audio_Video.csproj"
+
+# Copy all files and build the application
 COPY . .
+WORKDIR "/src/SReddy_Audio_Video"
 RUN dotnet publish -c Release -o /app/publish
 
 # Final runtime image
